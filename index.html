@@ -4,29 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CampusMarket — Browse Products</title>
+  <meta name="description" content="CampusMarket helps students buy and sell what they need around campus.">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- ============ SITE HEADER ============ -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="logo">Campus<span>Market</span></a>
+      <a href="index.html" class="logo" aria-label="CampusMarket home">Campus<span>Market</span></a>
 
-      <!-- Week 2 (JS) will wire up live filtering on this form -->
-      <form class="search-form" role="search" action="#" method="get">
+      <form class="search-form" id="product-search-form" role="search" action="#" method="get">
         <label for="site-search" class="visually-hidden">Search products</label>
-        <input type="search" id="site-search" name="q" placeholder="Search textbooks, gear, dorm items…">
+        <input type="search" id="site-search" name="q" placeholder="Search textbooks, gear, dorm items…" aria-label="Search products">
         <button type="submit">Search</button>
       </form>
 
       <nav class="main-nav" aria-label="Primary">
         <ul>
           <li><a href="#catalog">Browse</a></li>
-          <!-- Week 6+ (sessions/auth) will make these real -->
           <li><a href="#" class="nav-link-muted">Log in</a></li>
           <li><a href="#" class="nav-link-muted">Sign up</a></li>
-          <!-- Week 9 (shopping cart) will make this dynamic -->
           <li><a href="#" class="cart-link">Cart <span class="cart-count" id="cart-count">0</span></a></li>
         </ul>
       </nav>
@@ -34,40 +31,78 @@
   </header>
 
   <main id="main-content">
-
-    <!-- ============ HERO / INTRO ============ -->
     <section class="hero">
       <div class="hero-inner">
-        <p class="hero-eyebrow">A marketplace built for this campus</p>
-        <h1>Buy and sell what your dorm actually needs.</h1>
-        <p class="hero-sub">Used textbooks, lab gear, mini fridges, bikes — posted by students who sat next to you in class.</p>
+        <div class="hero-copy">
+          <p class="hero-eyebrow">A marketplace built for this campus</p>
+          <h1>Buy and sell what your dorm actually needs.</h1>
+          <p class="hero-sub">Used textbooks, lab gear, mini fridges, bikes — all posted by students who sat next to you in class.</p>
+
+          <div class="hero-meta" aria-label="Marketplace stats">
+            <div>
+              <strong>4</strong>
+              <span>Fresh listings</span>
+            </div>
+            <div>
+              <strong>2 min</strong>
+              <span>Average pickup</span>
+            </div>
+            <div>
+              <strong>98%</strong>
+              <span>Student verified</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Featured list">
+          <p class="panel-label">This week’s favorites</p>
+          <ul>
+            <li>
+              <span class="dot dot-gold"></span>
+              <div>
+                <strong>Textbooks</strong>
+                <small>Most viewed this week</small>
+              </div>
+            </li>
+            <li>
+              <span class="dot dot-green"></span>
+              <div>
+                <strong>Mini fridges</strong>
+                <small>Hot dorm picks</small>
+              </div>
+            </li>
+            <li>
+              <span class="dot dot-ink"></span>
+              <div>
+                <strong>Campus rides</strong>
+                <small>Affordable transport</small>
+              </div>
+            </li>
+          </ul>
+        </aside>
       </div>
     </section>
 
-    <!-- ============ FILTER / CATEGORY BAR ============ -->
-    <!-- Static for now — Week 2 adds click behaviour, later weeks pull real categories from MySQL -->
     <nav class="category-bar" aria-label="Product categories">
       <ul>
-        <li><a href="#" class="active">All</a></li>
-        <li><a href="#">Textbooks</a></li>
-        <li><a href="#">Electronics</a></li>
-        <li><a href="#">Dorm &amp; Living</a></li>
-        <li><a href="#">Bikes &amp; Transport</a></li>
-        <li><a href="#">Free / Giveaway</a></li>
+        <li><a href="#" class="category-filter active" data-category="all">All</a></li>
+        <li><a href="#" class="category-filter" data-category="textbooks">Textbooks</a></li>
+        <li><a href="#" class="category-filter" data-category="electronics">Electronics</a></li>
+        <li><a href="#" class="category-filter" data-category="dorm">Dorm &amp; Living</a></li>
+        <li><a href="#" class="category-filter" data-category="bikes">Bikes &amp; Transport</a></li>
+        <li><a href="#" class="category-filter" data-category="free">Free / Giveaway</a></li>
       </ul>
     </nav>
 
-  
     <section id="catalog" class="catalog" aria-label="Product catalog">
       <div class="catalog-header">
         <h2>Recently listed</h2>
-        <p class="result-count"><span id="result-count">4</span> items</p>
+        <p class="result-count"><span id="result-count" aria-live="polite">4</span> items</p>
       </div>
 
       <ul class="product-grid" id="product-grid">
-
         <li class="product-card" data-product-id="1" data-category="textbooks">
-          <a href="#" class="product-card-link">
+          <a href="#" class="product-card-link" aria-label="View CCS 2314 Web Programming Textbook, 4th Ed.">
             <div class="product-thumb" aria-hidden="true">📘</div>
             <p class="product-category">Textbooks</p>
             <h3 class="product-title">CCS 2314 Web Programming Textbook, 4th Ed.</h3>
@@ -78,7 +113,7 @@
         </li>
 
         <li class="product-card" data-product-id="2" data-category="electronics">
-          <a href="#" class="product-card-link">
+          <a href="#" class="product-card-link" aria-label="View Scientific Calculator (Casio fx-991)">
             <div class="product-thumb" aria-hidden="true">🖩</div>
             <p class="product-category">Electronics</p>
             <h3 class="product-title">Scientific Calculator (Casio fx-991)</h3>
@@ -89,7 +124,7 @@
         </li>
 
         <li class="product-card" data-product-id="3" data-category="dorm">
-          <a href="#" class="product-card-link">
+          <a href="#" class="product-card-link" aria-label="View Mini Fridge, barely used">
             <div class="product-thumb" aria-hidden="true">🧊</div>
             <p class="product-category">Dorm &amp; Living</p>
             <h3 class="product-title">Mini Fridge, barely used</h3>
@@ -100,7 +135,7 @@
         </li>
 
         <li class="product-card" data-product-id="4" data-category="bikes">
-          <a href="#" class="product-card-link">
+          <a href="#" class="product-card-link" aria-label="View Commuter Bicycle, size M">
             <div class="product-thumb" aria-hidden="true">🚲</div>
             <p class="product-category">Bikes &amp; Transport</p>
             <h3 class="product-title">Commuter Bicycle, size M</h3>
@@ -109,18 +144,14 @@
           </a>
           <button type="button" class="add-to-cart-btn" data-product-id="4">Add to cart</button>
         </li>
-
       </ul>
     </section>
-
   </main>
 
-  <!-- ============ SITE FOOTER ============ -->
   <footer class="site-footer">
     <p>CampusMarket — a CCS 2314 semester project. Not a real store.</p>
   </footer>
 
-  <!-- Week 2 onward: js/main.js will handle search, filtering, validation, and cart events -->
   <script src="js/main.js"></script>
 </body>
 </html>
