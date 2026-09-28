@@ -3,124 +3,414 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CampusMarket — Browse Products</title>
+  <title>CampusMarket — Buy &amp; Sell on Your Campus</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+  <style>
+    .landing-hero {
+      background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #10B981 100%);
+      color: white;
+      padding: 100px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .landing-hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 159, 28, 0.1) 0%, transparent 70%);
+      top: -150px;
+      right: -150px;
+      pointer-events: none;
+    }
+
+    .landing-hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    .landing-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .landing-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      color: white;
+    }
+
+    .landing-hero p {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-btn-primary {
+      background: #FF9F1C;
+      color: white;
+    }
+
+    .cta-btn-primary:hover {
+      background: #E67E22;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 159, 28, 0.4);
+    }
+
+    .cta-btn-secondary {
+      background: white;
+      color: #1E3A8A;
+    }
+
+    .cta-btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    }
+
+    .features-section {
+      padding: 80px 24px;
+      background: #F8FAFC;
+    }
+
+    .features-container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      color: #1E3A8A;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #6B7280;
+      margin-bottom: 60px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(30, 58, 138, 0.15);
+      border-color: #FF9F1C;
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #1E3A8A;
+    }
+
+    .feature-card p {
+      color: #6B7280;
+      line-height: 1.6;
+    }
+
+    .stats-section {
+      padding: 60px 24px;
+      background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+      color: white;
+    }
+
+    .stats-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      color: #FF9F1C;
+      margin-bottom: 8px;
+    }
+
+    .stat-item p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .testimonials-section {
+      padding: 80px 24px;
+      background: white;
+    }
+
+    .testimonials-container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+    }
+
+    .testimonial-card {
+      background: #F8FAFC;
+      padding: 32px;
+      border-radius: 12px;
+      border-left: 4px solid #FF9F1C;
+    }
+
+    .testimonial-stars {
+      color: #FF9F1C;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .testimonial-text {
+      color: #1F2937;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-avatar {
+      font-size: 2rem;
+    }
+
+    .author-info h4 {
+      margin: 0;
+      color: #1E3A8A;
+    }
+
+    .author-info p {
+      margin: 0;
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .cta-section {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, #FF9F1C 0%, #E67E22 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-section-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+
+    @media (max-width: 768px) {
+      .landing-hero {
+        padding: 60px 24px;
+      }
+
+      .landing-hero h1 {
+        font-size: 2rem;
+      }
+
+      .landing-hero p {
+        font-size: 1.1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .cta-btn {
+        width: 100%;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid,
+      .testimonials-grid,
+      .stats-container {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .feature-card,
+      .testimonial-card,
+      .stat-item {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="market-body">
 
   <!-- ============ SITE HEADER ============ -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="index.html" class="logo">Campus<span>Market</span></a>
-
-      <!-- Week 2 (JS) will wire up live filtering on this form -->
-      <form class="search-form" role="search" action="#" method="get">
-        <label for="site-search" class="visually-hidden">Search products</label>
-        <input type="search" id="site-search" name="q" placeholder="Search textbooks, gear, dorm items…">
-        <button type="submit">Search</button>
-      </form>
-
-      <nav class="main-nav" aria-label="Primary">
+  <header class="market-header">
+    <div class="market-header-inner">
+      <a href="index.html" class="market-brand" aria-label="CampusMarket home">
+        <img src="logo.svg" alt="CampusMarket" class="logo-img">
+        <span class="market-brand-copy">
+          <strong>CampusMarket</strong>
+          <span>THE STUDENT EXCHANGE</span>
+        </span>
+      </a>
+      <nav class="market-nav" aria-label="Primary">
         <ul>
-          <li><a href="#catalog">Browse</a></li>
-          <!-- Week 6+ (sessions/auth) will make these real -->
-          <li><a href="#" class="nav-link-muted">Log in</a></li>
-          <li><a href="#" class="nav-link-muted">Sign up</a></li>
-          <!-- Week 9 (shopping cart) will make this dynamic -->
-          <li><a href="#" class="cart-link">Cart <span class="cart-count" id="cart-count">0</span></a></li>
+          <li><a href="#home-listings">Marketplace</a></li>
+          <li><a href="login.html">Sign in</a></li>
+          <li><a href="catalog.html" class="market-nav-cta">Browse all</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main-content">
-
-    <!-- ============ HERO / INTRO ============ -->
-    <section class="hero">
-      <div class="hero-inner">
-        <p class="hero-eyebrow">A marketplace built for this campus</p>
-        <h1>Buy and sell what your dorm actually needs.</h1>
-        <p class="hero-sub">Used textbooks, lab gear, mini fridges, bikes — posted by students who sat next to you in class.</p>
+  <main id="main-content" class="marketplace-home">
+    <section class="market-masthead" aria-labelledby="market-heading">
+      <div class="market-masthead-inner">
+        <div class="market-masthead-meta">
+          <span class="market-kicker">CampusMarket / student exchange</span>
+          <span>Peer listings <span aria-hidden="true">•</span> local pickup</span>
+        </div>
+        <div class="market-title-row">
+          <div class="market-title-copy">
+            <h1 id="market-heading">Good finds, already on campus.</h1>
+            <p>Textbooks, room essentials and everyday gear, listed by students. Find it here, meet nearby, keep it in circulation.</p>
+          </div>
+          <a class="market-catalog-link" href="catalog.html">Explore full catalog <span aria-hidden="true">&#8599;</span></a>
+        </div>
       </div>
     </section>
 
-    <!-- ============ FILTER / CATEGORY BAR ============ -->
-    <!-- Static for now — Week 2 adds click behaviour, later weeks pull real categories from MySQL -->
-    <nav class="category-bar" aria-label="Product categories">
-      <ul>
-        <li><a href="#" class="active">All</a></li>
-        <li><a href="#">Textbooks</a></li>
-        <li><a href="#">Electronics</a></li>
-        <li><a href="#">Dorm &amp; Living</a></li>
-        <li><a href="#">Bikes &amp; Transport</a></li>
-        <li><a href="#">Free / Giveaway</a></li>
-      </ul>
-    </nav>
-
-  
-    <section id="catalog" class="catalog" aria-label="Product catalog">
-      <div class="catalog-header">
-        <h2>Recently listed</h2>
-        <p class="result-count"><span id="result-count">4</span> items</p>
+    <section class="market-toolbar" aria-label="Search listings">
+      <div class="market-toolbar-inner">
+        <form class="market-search" id="home-search" role="search">
+          <label for="home-search-input" class="visually-hidden">Search campus listings</label>
+          <input id="home-search-input" type="search" placeholder="Search books, bikes, dorm gear...">
+          <button type="submit">Search</button>
+        </form>
+        <a class="market-sell-link" href="login.html">Sign in to sell</a>
       </div>
-
-      <ul class="product-grid" id="product-grid">
-
-        <li class="product-card" data-product-id="1" data-category="textbooks">
-          <a href="#" class="product-card-link">
-            <div class="product-thumb" aria-hidden="true">📘</div>
-            <p class="product-category">Textbooks</p>
-            <h3 class="product-title">CCS 2314 Web Programming Textbook, 4th Ed.</h3>
-            <p class="product-price">KSh 1,500</p>
-            <p class="product-seller">Listed by J. Mwangi</p>
-          </a>
-          <button type="button" class="add-to-cart-btn" data-product-id="1">Add to cart</button>
-        </li>
-
-        <li class="product-card" data-product-id="2" data-category="electronics">
-          <a href="#" class="product-card-link">
-            <div class="product-thumb" aria-hidden="true">🖩</div>
-            <p class="product-category">Electronics</p>
-            <h3 class="product-title">Scientific Calculator (Casio fx-991)</h3>
-            <p class="product-price">KSh 900</p>
-            <p class="product-seller">Listed by A. Otieno</p>
-          </a>
-          <button type="button" class="add-to-cart-btn" data-product-id="2">Add to cart</button>
-        </li>
-
-        <li class="product-card" data-product-id="3" data-category="dorm">
-          <a href="#" class="product-card-link">
-            <div class="product-thumb" aria-hidden="true">🧊</div>
-            <p class="product-category">Dorm &amp; Living</p>
-            <h3 class="product-title">Mini Fridge, barely used</h3>
-            <p class="product-price">KSh 5,000</p>
-            <p class="product-seller">Listed by N. Wanjiru</p>
-          </a>
-          <button type="button" class="add-to-cart-btn" data-product-id="3">Add to cart</button>
-        </li>
-
-        <li class="product-card" data-product-id="4" data-category="bikes">
-          <a href="#" class="product-card-link">
-            <div class="product-thumb" aria-hidden="true">🚲</div>
-            <p class="product-category">Bikes &amp; Transport</p>
-            <h3 class="product-title">Commuter Bicycle, size M</h3>
-            <p class="product-price">KSh 8,500</p>
-            <p class="product-seller">Listed by S. Kariuki</p>
-          </a>
-          <button type="button" class="add-to-cart-btn" data-product-id="4">Add to cart</button>
-        </li>
-
-      </ul>
     </section>
 
+    <div class="marketplace-content">
+      <aside class="market-filter-rail" aria-labelledby="market-categories-heading">
+        <p class="market-section-label">Browse departments</p>
+        <h2 id="market-categories-heading">Shop by category</h2>
+        <nav class="market-category-list" aria-label="Filter listings">
+          <button type="button" class="market-category-button is-selected" data-home-category="all" aria-pressed="true">Everything <span class="market-category-count" data-count-category="all"></span></button>
+          <button type="button" class="market-category-button" data-home-category="textbooks" aria-pressed="false">Textbooks <span class="market-category-count" data-count-category="textbooks"></span></button>
+          <button type="button" class="market-category-button" data-home-category="electronics" aria-pressed="false">Electronics <span class="market-category-count" data-count-category="electronics"></span></button>
+          <button type="button" class="market-category-button" data-home-category="dorm" aria-pressed="false">Dorm &amp; Living <span class="market-category-count" data-count-category="dorm"></span></button>
+          <button type="button" class="market-category-button" data-home-category="bikes" aria-pressed="false">Bikes &amp; Transport <span class="market-category-count" data-count-category="bikes"></span></button>
+          <button type="button" class="market-category-button" data-home-category="free" aria-pressed="false">Free / Giveaway <span class="market-category-count" data-count-category="free"></span></button>
+        </nav>
+        <div class="market-pickup-note">
+          <p class="market-section-label">Made for campus</p>
+          <strong>Close by, not shipped in.</strong>
+          <p>Coordinate a pickup with the seller and give useful things another semester of life.</p>
+        </div>
+      </aside>
+
+      <section class="market-listings" id="home-listings" aria-labelledby="home-listings-heading">
+        <div class="market-listings-heading">
+          <div>
+            <p class="market-section-label">On the noticeboard</p>
+            <h2 id="home-listings-heading">Fresh listings</h2>
+          </div>
+          <p><strong id="home-result-count" aria-live="polite">8</strong> items</p>
+        </div>
+        <ul class="market-product-grid" id="home-product-grid"></ul>
+        <p class="market-empty-state" id="home-empty-state" hidden>No listings match that search. Try another category or keyword.</p>
+      </section>
+    </div>
+  </main>
   </main>
 
-  <!-- ============ SITE FOOTER ============ -->
-  <footer class="site-footer">
-    <p>CampusMarket — a CCS 2314 semester project. Not a real store.</p>
+  <!-- ============ FOOTER ============ -->
+  <footer class="market-footer">
+    <div class="market-footer-inner">
+      <span>CampusMarket <span aria-hidden="true">/</span> Find it. Meet up. Pass it on.</span>
+      <a href="catalog.html">See every listing</a>
+    </div>
   </footer>
 
-  <!-- Week 2 onward: js/main.js will handle search, filtering, validation, and cart events -->
-  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

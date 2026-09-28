@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — CampusMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 50%, #10B981 100%);
+    }
+
+    .auth-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      gap: 0;
+    }
+
+    .auth-info {
+      padding: 60px 40px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .auth-info h1 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .auth-info p {
+      font-size: 1.1rem;
+      margin-bottom: 32px;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+
+    .auth-benefits {
+      list-style: none;
+      padding: 0;
+    }
+
+    .auth-benefits li {
+      padding: 12px 0;
+      font-size: 1rem;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .auth-benefits li::before {
+      content: '✓';
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #FF9F1C;
+    }
+
+    .auth-form-section {
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+    }
+
+    .auth-form-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #1E3A8A;
+    }
+
+    .auth-form-section p {
+      color: #6B7280;
+      margin-bottom: 32px;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1F2937;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px 16px;
+      border: 2px solid #E5E7EB;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #FF9F1C;
+      box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.1);
+      outline: none;
+    }
+
+    .submit-btn {
+      padding: 14px;
+      background: linear-gradient(135deg, #FF9F1C 0%, #E67E22 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 12px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 159, 28, 0.3);
+    }
+
+    .form-toggle {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #E5E7EB;
+      color: #6B7280;
+    }
+
+    .form-toggle a {
+      color: #FF9F1C;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .form-toggle-button {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: #FF9F1C;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .auth-message {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: max-height 0.2s ease, opacity 0.2s ease, transform 0.2s ease, padding 0.2s ease;
+    }
+
+    .auth-message.is-visible {
+      max-height: 5rem;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .auth-message.success {
+      background: #ECFDF5;
+      color: #10B981;
+      border: 2px solid #10B981;
+    }
+
+    .auth-message.error {
+      background: #FEF2F2;
+      color: #EF4444;
+      border: 2px solid #EF4444;
+    }
+
+    .demo-credentials {
+      background: #F1F5F9;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      color: #6B7280;
+    }
+
+    .demo-credentials strong {
+      color: #1E3A8A;
+    }
+
+    @media (max-width: 768px) {
+      .auth-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-info {
+        padding: 40px 24px;
+      }
+
+      .auth-form-section {
+        padding: 40px 24px;
+      }
+
+      .auth-info h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="logo.svg" alt="CampusMarket" class="logo-img">
+      </a>
+    </div>
+  </header>
+
+  <!-- ============ AUTH CONTAINER ============ -->
+  <main class="auth-container">
+    <div class="auth-wrapper">
+      <!-- Left Side - Info -->
+      <div class="auth-info">
+        <h1>Join CampusMarket Today</h1>
+        <p>Connect with students on your campus. Buy and sell textbooks, gear, dorm essentials, and more!</p>
+        
+        <ul class="auth-benefits">
+          <li>💰 Save money on textbooks and gear</li>
+          <li>📚 Buy from verified students</li>
+          <li>🚀 Quick and easy listings</li>
+          <li>🛡️ Secure payments & messaging</li>
+          <li>📦 Campus delivery options</li>
+        </ul>
+      </div>
+
+      <!-- Right Side - Forms -->
+      <div class="auth-form-section">
+        <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
+        <!-- Login Form -->
+        <div id="login-form-container">
+          <h2>Welcome Back!</h2>
+          <p>Log in to your account to start buying and selling</p>
+
+          <div class="demo-credentials">
+            <strong>📝 Demo Credentials:</strong><br>
+            Email: <code>student@campus.edu</code><br>
+            Password: <code>password123</code>
+          </div>
+
+          <form class="auth-form" id="login-form" novalidate>
+            <div class="form-group">
+              <label for="login-email">Email Address</label>
+              <input type="email" id="login-email" placeholder="student@campus.edu" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="submit-btn">Log In</button>
+          </form>
+
+          <div class="form-toggle">
+            Don't have an account? <button type="button" class="form-toggle-button" data-form-toggle>Sign up here</button>
+          </div>
+        </div>
+
+        <!-- Registration Form (Hidden by default) -->
+        <div id="register-form-container" hidden>
+          <h2>Create Account</h2>
+          <p>Join our campus community in just a few steps</p>
+
+          <form class="auth-form" id="register-form" novalidate>
+            <div class="form-group">
+              <label for="register-name">Full Name</label>
+              <input type="text" id="register-name" placeholder="John Student" required>
+            </div>
+            <div class="form-group">
+              <label for="register-email">Email Address</label>
+              <input type="email" id="register-email" placeholder="student@campus.edu" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password">Password</label>
+              <input type="password" id="register-password" placeholder="Create a strong password" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirm">Confirm Password</label>
+              <input type="password" id="register-confirm" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="submit-btn">Create Account</button>
+          </form>
+
+          <div class="form-toggle">
+            Already have an account? <button type="button" class="form-toggle-button" data-form-toggle>Log in here</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>CampusMarket © 2026 | A vibrant peer-to-peer marketplace for students</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Products — CampusMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/catalog-dark.css">
+</head>
+<body class="catalog-dark">
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="logo.svg" alt="CampusMarket" class="logo-img">
+      </a>
+
+      <form class="search-form" role="search" action="#" method="get">
+        <label for="site-search" class="visually-hidden">Search products</label>
+        <input type="search" id="site-search" name="q" placeholder="Search textbooks, gear, dorm items…">
+        <button type="submit">Search</button>
+      </form>
+
+      <nav class="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="catalog.html">Browse</a></li>
+          <li><a href="login.html" class="nav-link-muted">Log in</a></li>
+          <li><a href="login.html" class="nav-link-muted">Sign up</a></li>
+          <li><a href="#" class="cart-link" id="cart-toggle">🛒 Cart <span class="cart-count" id="cart-count">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ============ HERO / INTRO ============ -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">Explore the Marketplace</p>
+        <h1>Find Everything You Need</h1>
+        <p class="hero-sub">Browse products from verified students on your campus. Find textbooks, gear, dorm essentials, and much more.</p>
+      </div>
+    </section>
+
+    <!-- ============ FILTER / CATEGORY BAR ============ -->
+    <nav class="category-bar" aria-label="Product categories">
+      <ul>
+        <li><a href="#" class="active" data-category="all">All</a></li>
+        <li><a href="#" data-category="textbooks">Textbooks</a></li>
+        <li><a href="#" data-category="electronics">Electronics</a></li>
+        <li><a href="#" data-category="dorm">Dorm &amp; Living</a></li>
+        <li><a href="#" data-category="bikes">Bikes &amp; Transport</a></li>
+        <li><a href="#" data-category="free">Free / Giveaway</a></li>
+      </ul>
+    </nav>
+
+    <section class="featured-gallery" aria-label="Featured product gallery">
+      <button type="button" class="gallery-control" id="gallery-previous" aria-label="Previous product">&#8592;</button>
+      <figure class="gallery-slide" aria-live="polite">
+        <img id="gallery-image" src="" alt="Featured product">
+        <figcaption>
+          <p class="product-category" id="gallery-category"></p>
+          <h2 id="gallery-title"></h2>
+          <p id="gallery-price"></p>
+        </figcaption>
+      </figure>
+      <button type="button" class="gallery-control" id="gallery-next" aria-label="Next product">&#8594;</button>
+    </section>
+
+    <section id="catalog" class="catalog" aria-label="Product catalog">
+      <div class="catalog-header">
+        <h2>Recently Listed</h2>
+        <p class="result-count"><span id="result-count">8</span> items</p>
+      </div>
+
+      <ul class="product-grid" id="product-grid"></ul>
+    </section>
+
+  </main>
+
+  <!-- ============ SHOPPING CART SIDEBAR ============ -->
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h2>Shopping Cart</h2>
+      <button class="close-cart" id="close-cart">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <p class="empty-cart">Your cart is empty</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span class="total-price" id="total-price">KSh 0</span>
+      </div>
+      <button class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ============ CHECKOUT MODAL ============ -->
+  <div class="modal" id="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-heading">
+    <div class="modal-content">
+      <button type="button" class="close-modal" id="close-modal" aria-label="Close checkout">✕</button>
+      <h2 id="checkout-heading">Checkout</h2>
+      <div class="checkout-container">
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="order-items"></div>
+          <div class="order-total">
+            <strong>Total: </strong>
+            <strong id="checkout-total">KSh 0</strong>
+          </div>
+        </div>
+        <form class="checkout-form" id="checkout-form" novalidate>
+          <h3>Delivery Details</h3>
+          <label for="checkout-name">Full Name</label>
+          <input type="text" id="checkout-name" placeholder="Full Name" name="fullName" required>
+          <label for="checkout-email">Email</label>
+          <input type="email" id="checkout-email" placeholder="Email" name="email" required>
+          <label for="checkout-phone">Phone Number</label>
+          <input type="tel" id="checkout-phone" placeholder="Phone Number" name="phone" required>
+          <label for="checkout-address">Delivery Address</label>
+          <input type="text" id="checkout-address" placeholder="Delivery Address" name="address" required>
+          <label for="checkout-delivery">Delivery Option</label>
+          <select id="checkout-delivery" name="delivery" required>
+            <option value="">Select Delivery Option</option>
+            <option value="standard">Standard (3-5 days) - Free</option>
+            <option value="express">Express (1-2 days) - KSh 500</option>
+            <option value="same-day">Same Day - KSh 1,500</option>
+          </select>
+          <h3>Payment Method</h3>
+          <label for="checkout-payment">Payment Method</label>
+          <select id="checkout-payment" name="payment" required>
+            <option value="">Select Payment Method</option>
+            <option value="mpesa">M-Pesa</option>
+            <option value="card">Credit/Debit Card</option>
+            <option value="bank">Bank Transfer</option>
+          </select>
+          <button type="submit" class="place-order-btn">Place Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SUCCESS MODAL ============ -->
+  <div class="modal" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-heading">
+    <div class="modal-content success-content">
+      <div class="success-icon">✓</div>
+      <h2 id="success-heading">Order Placed Successfully!</h2>
+      <p id="success-message"></p>
+      <button class="continue-btn" id="continue-shopping">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- ============ CART OVERLAY ============ -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+
+  <!-- ============ SITE FOOTER ============ -->
+  <footer class="site-footer">
+    <p>CampusMarket © 2026 | A vibrant peer-to-peer marketplace for students</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
