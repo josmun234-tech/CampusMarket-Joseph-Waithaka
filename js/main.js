@@ -1,25 +1,74 @@
-// =========================================================
-// CampusMarket — main.js
-// Currently minimal on purpose: the syllabus introduces
-// JavaScript in Week 2, form validation/events after that,
-// and AJAX/JSON + PHP later. This file is where that logic
-// will live as the app grows — don't create new JS files
-// per week, keep adding to this one (and split into modules
-// under js/ once it gets large).
-// =========================================================
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Minimal placeholder behaviour so the page isn't inert:
-  // clicking "Add to cart" bumps the header cart counter.
-  // This is NOT the real cart (that's a later milestone) —
-  // it has no persistence, no backend call, and resets on reload.
   const cartCountEl = document.getElementById("cart-count");
-  let cartCount = 0;
+  const searchForm = document.getElementById("product-search-form");
+  const searchInput = document.getElementById("site-search");
+  const cards = [...document.querySelectorAll(".product-card")];
+  const countEl = document.getElementById("result-count");
+  const categoryButtons = [...document.querySelectorAll(".category-filter")];
 
-  document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
+  let cartCount = 0;
+  let activeCategory = "all";
+
+  const updateCart = () => {
+    if (cartCountEl) cartCountEl.textContent = String(cartCount);
+  };
+
+  const updateResults = () => {
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    let visible = 0;
+
+    cards.forEach((card) => {
+      const cardText = (card.dataset.search || card.textContent).toLowerCase();
+      const matchesCategory = activeCategory === "all" || card.dataset.category === activeCategory;
+      const matchesQuery = !query || cardText.includes(query);
+      const isVisible = matchesCategory && matchesQuery;
+
+      card.hidden = !isVisible;
+      if (isVisible) visible += 1;
+    });
+
+    if (countEl) countEl.textContent = String(visible);
+  };
+
+  document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
+    button.addEventListener("click", () => {
       cartCount += 1;
-      cartCountEl.textContent = cartCount;
+      updateCart();
+
+      const originalText = button.textContent;
+      button.textContent = "Added";
+      button.disabled = true;
+      button.setAttribute("aria-live", "polite");
+
+      window.setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+      }, 700);
     });
   });
+
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      activeCategory = button.dataset.category || "all";
+
+      categoryButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn === button);
+      });
+
+      updateResults();
+    });
+  });
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      updateResults();
+    });
+
+    searchInput.addEventListener("input", updateResults);
+  }
+
+  updateCart();
+  updateResults();
 });
