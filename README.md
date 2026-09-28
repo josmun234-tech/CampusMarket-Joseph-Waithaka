@@ -1,55 +1,32 @@
+Full Name: Joseph Mungai Waithaka
+Admission Number: CIT-223-066/2024
+Live Site: https://cool-wisp-7283cc.netlify.app
+
 # CampusMarket — CCS 2314 Semester Project
 
-Starter scaffold for Week 1 (**HTML/CSS**) of the development path:
+CampusMarket is a responsive, client-side student marketplace. It includes a searchable product catalog, category filters, a wraparound featured-product gallery, a localStorage cart, checkout validation, demo authentication, and a profile/order view.
 
-```
-HTML/CSS → JavaScript → validation/events → animation/media → AJAX/JSON
-→ PHP → sessions/authentication → MySQL → CRUD → security/accessibility
-→ shopping cart → checkout → final integrated application
-```
+## Project Files
 
-## What's here now
+- `index.html`: marketplace home page
+- `catalog.html`: product catalog, filter, gallery, cart, and checkout
+- `login.html`: sign-in and registration forms
+- `profile.html`: profile, order history, and account editing
+- `css/style.css`: shared catalog and cart styles
+- `css/catalog-dark.css`: dark theme scoped to the full catalog experience
+- `css/marketplace.css`: landing-page marketplace layout
+- `js/products.js`: shared product records used on the landing page and catalog
+- `js/home.js`: landing-page search, category filters, and listing cards
+- `js/main.js`: catalog filtering, gallery, cart, and checkout logic
+- `js/auth.js`, `js/login.js`, `js/profile.js`: authentication and account-page behavior
+- `images/`: bundled product photos used by the catalog and gallery
 
-```
-CampusMarket/
-├── index.html      Product browsing page (static placeholder data)
-├── css/
-│   └── style.css   All styling — layout, typography, responsive grid
-├── js/
-│   └── main.js      Empty-ish stub; Week 2 builds this out
-└── images/          Empty; drop real product photos here later
-```
+The landing page listings, catalog cards, and featured gallery all use `window.campusMarketProducts` from `js/products.js`. Category filters and search select a subset of that shared array, keeping the image and category data aligned across pages.
 
-## Why it's built this way
+## Run and Test
 
-- **Static placeholder products** in `index.html` (`.product-card` items)
-  stand in for what will eventually come from a MySQL `products` table.
-  Keep the markup structure (class names, data attributes) the same when
-  you later generate these cards with a PHP loop, so the CSS keeps working
-  without changes.
-- `data-product-id` and `data-category` attributes are already on each
-  card — they're unused today but will make JS filtering (Week 2/3) and
-  the real cart (Week 9) much less of a rewrite.
-- `js/main.js` has a placeholder click handler on "Add to cart" so the
-  page isn't inert, but it is **not** the real cart — no persistence, no
-  server call. That's built for real once sessions + MySQL exist.
+Open `index.html` in a browser to search listings and filter by department. Use **Browse all** to open the full catalog. Product photos are bundled in `images/`, and local asset links are relative. Cart, demo-account, and order data are stored in the browser's localStorage; this is a front-end demonstration, not a secure production checkout.
 
-## Next steps, in order
+Demo sign-in: `student@campus.edu` / `password123`.
 
-1. **JavaScript**: wire up the search box and category-bar filtering
-   against the in-page product data.
-2. **Validation/events**: build a "list an item" form with client-side
-   validation before it ever touches a server.
-3. **PHP + MySQL**: move the product list into a database and render
-   `.product-card`s with a PHP loop instead of hardcoded HTML.
-4. **Sessions/auth**: make "Log in" / "Sign up" real.
-5. **Shopping cart → checkout**: replace the placeholder cart counter
-   with a persisted cart (session or DB-backed).
-
-## Running locally
-
-1. Put this folder inside your XAMPP `htdocs` directory.
-2. Start Apache (and MySQL once you need it) from the XAMPP control panel.
-3. Visit `http://localhost/CampusMarket/index.html`.
-4. Keep committing to the **same** Git repository all semester — don't
-   start a new project for each milestone.
+For a static deployment, connect this repository to the instructor-approved provider, leave the build command blank, and use the repository root as the publish directory. The Netlify URL above must be accessible without team protection; test it in a fresh, signed-out browser tab before submitting. Confirm the required hosting provider and the instructor's "static feature" before final submission.

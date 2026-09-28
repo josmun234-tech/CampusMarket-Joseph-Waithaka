@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — CampusMarket</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .profile-container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .profile-sidebar {
+      background: white;
+      border-radius: 12px;
+      padding: 32px 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .profile-avatar {
+      font-size: 4rem;
+      margin-bottom: 16px;
+    }
+
+    .profile-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1E3A8A;
+      margin-bottom: 4px;
+    }
+
+    .profile-email {
+      color: #6B7280;
+      font-size: 0.9rem;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 24px 0;
+      border-top: 1px solid #E5E7EB;
+      border-bottom: 1px solid #E5E7EB;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FF9F1C;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: #6B7280;
+      text-transform: uppercase;
+    }
+
+    .profile-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .profile-menu-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #1F2937;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .profile-menu-item:hover {
+      background: #F1F5F9;
+      border-color: #FF9F1C;
+      color: #FF9F1C;
+    }
+
+    .profile-menu-item.active {
+      background: #FF9F1C;
+      color: white;
+      border-color: #FF9F1C;
+    }
+
+    .profile-logout {
+      margin-top: 24px;
+    }
+
+    .profile-logout-btn {
+      width: 100%;
+      padding: 12px;
+      background: #EF4444;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .profile-logout-btn:hover {
+      background: #DC2626;
+    }
+
+    .profile-content {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .content-section {
+      display: none;
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .content-title {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+      color: #1E3A8A;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #E5E7EB;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1F2937;
+    }
+
+    .form-group input {
+      padding: 12px 16px;
+      border: 2px solid #E5E7EB;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #FF9F1C;
+      box-shadow: 0 0 0 3px rgba(255, 159, 28, 0.1);
+      outline: none;
+    }
+
+    .save-btn {
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .save-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .order-item {
+      background: #F8FAFC;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      border-left: 4px solid #FF9F1C;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .order-id {
+      font-weight: 700;
+      color: #1E3A8A;
+    }
+
+    .order-status {
+      background: #ECFDF5;
+      color: #10B981;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .order-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      font-size: 0.9rem;
+      color: #6B7280;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #6B7280;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+
+    .profile-message {
+      max-height: 0;
+      margin: 0;
+      overflow: hidden;
+      opacity: 0;
+      color: #047857;
+      transition: max-height 0.2s ease, opacity 0.2s ease, margin 0.2s ease;
+    }
+
+    .profile-message.is-visible {
+      max-height: 4rem;
+      margin: 16px 0;
+      opacity: 1;
+    }
+
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .quick-action {
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      color: white;
+      transition: filter 0.2s ease;
+    }
+    .quick-action:hover { filter: brightness(0.9); }
+    .quick-action-browse { background: #FF9F1C; }
+    .quick-action-sell { background: #10B981; border: 0; font: inherit; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ SITE HEADER ============ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo-link">
+        <img src="logo.svg" alt="CampusMarket" class="logo-img">
+      </a>
+      <nav class="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="catalog.html">Browse</a></li>
+          <li><a href="profile.html" class="nav-user">👤 Profile</a></li>
+          <li><a href="#" id="logout-btn" class="nav-link-muted">Log out</a></li>
+          <li><a href="catalog.html" class="cart-link">🛒 Cart <span class="cart-count" id="cart-count">0</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="profile-container">
+      <h1>My Profile</h1>
+
+      <div class="profile-grid">
+        <!-- Sidebar -->
+        <aside class="profile-sidebar">
+          <div class="profile-header">
+            <div class="profile-avatar" id="user-avatar">👨‍🎓</div>
+            <h2 class="profile-name" id="user-name">John Student</h2>
+            <p class="profile-email" id="user-email">student@campus.edu</p>
+          </div>
+
+          <div class="profile-stats">
+            <div class="stat">
+              <div class="stat-value" id="orders-count">0</div>
+              <div class="stat-label">Orders</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value" id="seller-rating">4.9</div>
+              <div class="stat-label">Rating</div>
+            </div>
+          </div>
+
+          <nav class="profile-menu" aria-label="Profile sections">
+            <a href="#section-overview" class="profile-menu-item active" data-profile-section="overview" aria-current="page">📊 Overview</a>
+            <a href="#section-orders" class="profile-menu-item" data-profile-section="orders">📦 My Orders</a>
+            <a href="#section-edit" class="profile-menu-item" data-profile-section="edit">⚙️ Edit Profile</a>
+            <a href="#section-listings" class="profile-menu-item" data-profile-section="listings">📝 My Listings</a>
+          </nav>
+
+          <div class="profile-logout">
+            <button class="profile-logout-btn" id="logout-btn-2">Log Out</button>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="profile-content">
+
+          <!-- Overview Section -->
+          <div class="content-section active" id="section-overview">
+            <h2 class="content-title">Welcome Back!</h2>
+                <div class="overview-content" style="display: grid; gap: 24px;">
+              <div>
+                <h3 style="color: #1E3A8A; margin-bottom: 12px;">📈 Your Activity</h3>
+                <div style="background: #F1F5F9; padding: 24px; border-radius: 8px;">
+                  <p style="margin: 0 0 8px 0;"><strong>Total Orders:</strong> <span id="total-orders">0</span></p>
+                  <p style="margin: 0 0 8px 0;"><strong>Amount Spent:</strong> <span id="total-spent">KSh 0</span></p>
+                  <p style="margin: 0;"><strong>Join Date:</strong> <span id="join-date">January 15, 2026</span></p>
+                </div>
+              </div>
+
+              <div>
+                <h3 style="color: #1E3A8A; margin-bottom: 12px;">🎯 Quick Actions</h3>
+                <div class="quick-actions">
+                  <a href="catalog.html" class="quick-action quick-action-browse">Browse Products</a>
+                  <a href="#section-listings" class="quick-action quick-action-sell" data-profile-section="listings">Sell an Item</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Orders Section -->
+          <div class="content-section" id="section-orders">
+            <h2 class="content-title">My Orders</h2>
+            <div id="orders-container">
+              <div class="empty-state" id="orders-empty-state">
+                <div class="empty-state-icon">📦</div>
+                <p>No orders yet. <a href="catalog.html" style="color: #FF9F1C; text-decoration: underline;">Start shopping</a></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Edit Profile Section -->
+          <div class="content-section" id="section-edit">
+            <h2 class="content-title">Edit Profile</h2>
+            <form id="edit-form" style="max-width: 500px;">
+              <div class="form-group">
+                <label for="edit-name">Full Name</label>
+                <input type="text" id="edit-name" required>
+              </div>
+              <div class="form-group">
+                <label for="edit-email">Email Address</label>
+                <input type="email" id="edit-email" disabled style="background: #F1F5F9; cursor: not-allowed;">
+              </div>
+              <button type="submit" class="save-btn">Save Changes</button>
+              <p class="profile-message" id="profile-message" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <!-- Listings Section -->
+          <div class="content-section" id="section-listings">
+            <h2 class="content-title">My Listings</h2>
+            <div id="listings-container">
+              <div class="empty-state">
+                <div class="empty-state-icon">📝</div>
+                <p>No listings yet. Start selling by posting your first item!</p>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>CampusMarket © 2026 | A vibrant peer-to-peer marketplace for students</p>
+  </footer>
+
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
